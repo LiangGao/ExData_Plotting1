@@ -1,0 +1,18 @@
+setwd('/Users/liang/Desktop/Coursera/EDA/Project1')
+data = read.csv('household_power_consumption.txt', sep = ';')
+paste('size of the data is ', object.size(data)/1000000, ' Mbytes.', sep = '')
+data$Date = as.Date(data$Date,'%d/%m/%Y')
+setwd('/Users/liang/Desktop/Coursera/EDA/Project1/ExData_Plotting1')
+
+subdata = subset(data, Date == '2007-02-01'|Date == '2007-02-02')
+
+DnT = strptime(paste(subdata$Date, subdata$Time), '%Y-%m-%d %H:%M:%S')
+SM1 = as.numeric(as.character(subdata$Sub_metering_1))
+SM2 = as.numeric(as.character(subdata$Sub_metering_2))
+SM3 = as.numeric(as.character(subdata$Sub_metering_3))
+png(file = 'plot3.png')
+plot(DnT, SM1, type = 'l', xlab = '', ylab = 'Energy sub metering', col = 'black')
+lines(DnT, SM2, type = 'l', col = 'red')
+lines(DnT, SM3, type = 'l', col = 'blue')
+legend('topright', legend = c('Sub_metering_1', 'Sub_metering_2', 'Sub_metering_3'), lty = 1, col = c('black','red','blue'))
+dev.off()
